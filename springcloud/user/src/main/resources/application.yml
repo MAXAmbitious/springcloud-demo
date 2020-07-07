@@ -1,0 +1,25 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: student-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 12345678
+mybatis:
+  mapper-locations: mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true  #驼峰命名映射
+  type-aliases-package: com.jia.pojo
+mapper:
+  wrap-keyword: "`{0}`" #通用mapper关键字处理
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10086/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
