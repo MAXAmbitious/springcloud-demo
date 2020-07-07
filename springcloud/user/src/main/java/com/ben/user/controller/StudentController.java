@@ -23,4 +23,16 @@ public class StudentController {
         result.setData(studentService.queryStudent(student));
         return result;
     }
+    
+    @RequestMapping("/hystrix")
+    public RestfulResult hystrix(){
+    	int i = 0;
+        while(true) {
+        	i++;
+        }
+//        RestfulResult result = new RestfulResult();
+//        result.setMessage("1");
+//        result.setData(i);
+//       return result;
+    }
 }

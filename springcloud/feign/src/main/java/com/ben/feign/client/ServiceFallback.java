@@ -13,4 +13,11 @@ public class ServiceFallback implements ServiceFeignClient {
         result.setData("服务调用失败");
         return result;
     }
+
+	@Override
+	public RestfulResult testHystrix() {
+		 RestfulResult result = new RestfulResult();
+	        result.setData("服务调用失败");
+	        return result;
+	}
 }

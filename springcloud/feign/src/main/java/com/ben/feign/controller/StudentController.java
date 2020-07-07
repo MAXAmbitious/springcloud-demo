@@ -20,5 +20,10 @@ public class StudentController {
     public RestfulResult queryStudent(@RequestBody Student student){
         return  serviceFeignClient.queryStudent(student);
     }
+    
+    @RequestMapping("/hystrix")
+    public RestfulResult hystrix(){
+        return  serviceFeignClient.testHystrix();
+    }
 
 }

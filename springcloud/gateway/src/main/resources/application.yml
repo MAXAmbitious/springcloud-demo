@@ -1,17 +1,33 @@
 server:
-  port: 10010 #开启的端口
+   port: 10010 #开启的端口
 spring:
-  application:
-    name: gateway  #服务的名称
+   application:
+      name: gateway #服务的名称
+   cloud:
+      gateway:
+         discovery:
+            locator:
+               enabled: true
+         routes:
+         -  id: path_route #普通路由
+            uri: http://localhost:8086/
+            predicates:
+            - Path=/student/**
+            filters:
+            - RewritePath=/student/(?<path>.*), /$\{path}
+         -  id: student-service #Hystrix路由
+            uri: lb://student-service #lb代表注册中心
+            predicates:
+            - Path=/student/**
+            filters:
+            - RewritePath=/student/(?<path>.*), /$\{path}
+            -  name: Hystrix
+               args:
+                  name: fallbackcmd
+                  fallbackUri: forward:/fallback
 eureka:
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:10086/eureka/ #注册到eureka的地址
-    registry-fetch-interval-seconds: 5  #eureka client间隔5s去拉取服务注册信息
-zuul:
-  prefix: /api # 添加路由前缀
-
-  sensitive-headers: #忽略请求头设置为null
-  host:
-    connect-timeout-millis: 15000
-    socket-timeout-millis: 60000
+   client:
+      service-url:
+         defaultZone: http://127.0.0.1:10086/eureka/ #注册到eureka的地址
+      registry-fetch-interval-seconds: 5 #eureka client间隔5s去拉取服务注册信息
+hystrix.command.fallbackcmd.execution.isolation.thread.timeoutInMilliseconds: 5000

@@ -14,4 +14,7 @@ import com.ben.feign.pojo.Student;
 public interface ServiceFeignClient {
 	@RequestMapping(value = "/hello/student", method = RequestMethod.POST)
 	RestfulResult queryStudent(@RequestBody Student student);
+	
+	@RequestMapping(value = "/student/hello/hystrix", method = RequestMethod.GET)
+	RestfulResult testHystrix();
 }
